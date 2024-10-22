@@ -1,0 +1,9 @@
+---
+import KycForm from "../components/KycForm";
+import { envConfig } from "../config/envConfig";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title={"Login - " + envConfig.PUBLIC_ORGNAME} noNavbar={true}>
+  <KycForm client:load/>
+</Layout>
