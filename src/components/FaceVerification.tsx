@@ -1,4 +1,9 @@
+import { useState } from "react";
+import Biometric from "./Biometric";
+
 const FaceVerification = () => {
+    const [captured, setCaptured] = useState<string | null>(null);
+  const [loader, setLoader] = useState(false);
     const handleNextPage = async() => {
         
     }
@@ -10,6 +15,15 @@ const FaceVerification = () => {
             <p className="text-lg text-gray-600 mb-8 text-center">
                 Please follow the instructions on the screen to complete your face verification.
             </p>
+            <Biometric
+                        onCapture={(img) => {
+                          setLoader(true);
+                          setCaptured(img);
+                          setTimeout(() => {
+                            setLoader(false);
+                          }, 500);
+                        }}
+                      />
 
             <div className="flex flex-col items-center mb-6">
                 {/* Placeholder for camera feed or upload area */}
