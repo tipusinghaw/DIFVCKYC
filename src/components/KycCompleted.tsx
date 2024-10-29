@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const KYCCompleted = () => {
   const [details, setDetails] = useState(null);
-
 
   const myApiKey =
   "sk_staging_5YV5T8355LLd2Htb6JQ6P9WjrApd8Vv8fT9s1TPkfWKBGXdsCPYWVqk3c4AMUT6jNt9CyeDUVbsxuNr9BuFSV6UzEuibUt4U8L7T6wBzf3tTUN4FmBHU7yggMBYhDCAuMsNPpoADskMzCM2c4a23o5GNuYs68Uhff9XKQFNAoTA9CZTAE4ue7uohvj8YqaHRjDmj33iCRPi8EwPB66YTTb4G" // Replace with key from step 2
@@ -14,40 +14,35 @@ const KYCCompleted = () => {
       const parsedData = JSON.parse(data);
       setDetails(parsedData);
     } else {
-      console.log("No data found in localStorage.");
+      console.log("No data found in localStorage.");  
     }
   }, []);
 
-  console.log('details5678:::', details)
-
   const issueCredential = () => {
-    console.log('--------in this log00000---------')
     const userEmail = "bhavana.karwade@ayanworks.com"; 
     const templateId = "aeb5d5ca-e367-449e-b681-da17c75af532"; 
-
+  
     const subject = details;
     const credentialParams = {
-      recipient: `email:${userEmail}:polygon-amoy`,
+      email: userEmail,
       credential: {
         subject,
         expiresAt: "2034-02-02",
       },
     };
-
-    console.log('credentialParams567:::', credentialParams)
+  
+    console.log('credentialParams567:::', credentialParams);
+    
     const options = {
-      method: "POST",
       headers: {
         "X-API-KEY": myApiKey,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentialParams),
     };
-
-    fetch(`https://staging.crossmint.com/api/v1-alpha1/credentials/templates/${templateId}/vcs`, options)
-      .then((response) => response.json())
+  
+    axios.post(`http://localhost:5002/crossmint/issue-credential`, credentialParams, options)
       .then((response) => {
-        console.log("Credential Response:", response);
+        console.log("Credential Response:", response.data);
         alert("Your credentials have been issued successfully!");
       })
       .catch((err) => console.error("Error issuing credential:", err));
