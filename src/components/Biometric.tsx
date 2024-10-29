@@ -1,6 +1,5 @@
 import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
-import ButtonPrimary from "./ButtonPrimary";
 
 interface BiometricProps {
     onCapture: (imageSrc: string) => void;
@@ -26,7 +25,7 @@ const Biometric: React.FC<BiometricProps> = ({ onCapture }) => {
     return (
         <div className="container flex gap-8 flex-col justify-center items-center">
             {imgSrc ? (
-                <img src={imgSrc} alt="webcam" />
+                <img src={imgSrc} alt="Captured" />
             ) : (
                 <Webcam
                     height={270}
@@ -35,9 +34,12 @@ const Biometric: React.FC<BiometricProps> = ({ onCapture }) => {
                     style={{ objectFit: "cover" }}
                 />
             )}
-            <ButtonPrimary addClass="cursor-pointer w-full" onClick={capture}>
+            <button
+                className="cursor-pointer py-2 px-6 mt-4 text-white font-semibold rounded-lg transition duration-300 bg-indigo-500 hover:bg-indigo-600 w-[200px]"
+                onClick={capture}
+            >
                 Capture
-            </ButtonPrimary>
+            </button>
         </div>
     );
 };

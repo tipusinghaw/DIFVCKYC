@@ -28,7 +28,7 @@ export default function LandingPage() {
                             onClick={() => handleNextPage()}
                             className="w-[400px] py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-300"
                         >
-                            Start Your KYC Now
+                            Create your account
                         </button>
                     </div>
                 </section>
