@@ -1,23 +1,18 @@
-import React from "react";
-import { FaceSdk, ImageSource, PersonApi } from '@regulaforensics/facesdk-webclient';
-// code sample use it according to your use case
-const ImageCompare = () => {
-    const sdk = new FaceSdk()
-    const aadherImage = ''
-    const captureImage = ''
-    async function compareFace(){
-        const response = await sdk.matchingApi.match({
-            images: [
-                {type: ImageSource.LIVE, data: aadherImage, index: 1},
-                {type: ImageSource.DOCUMENT_RFID, data: captureImage, index: 2}
-            ]
-          })
-          console.log(response) // if the image similarty is greater then 0.95 then consider it as verified
-    }
-  return (
-    <>
-    </> 
-  );
-};
+import { FaceSdk, ImageSource } from '@regulaforensics/facesdk-webclient';
 
-export default ImageCompare;
+const sdk = new FaceSdk();
+
+export const imageCompare = async (aadhaarImage: any, captureImage: any) => {
+  console.log('aadhaarImage5678:::', aadhaarImage)
+  console.log('captureImage56789:::', captureImage)
+
+  const response = await sdk.matchingApi.match({
+    images: [
+      { type: ImageSource.DOCUMENT_RFID, data: aadhaarImage, index: 1 },
+      { type: ImageSource.LIVE, data: captureImage, index: 2 }
+    ]
+  });
+   
+  console.log('response34567::::', response)
+  return response;; // Adjust according to your actual response structure
+};
