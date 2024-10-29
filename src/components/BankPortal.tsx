@@ -2,7 +2,9 @@ import { useState } from "react";
 import { QRCode } from "react-qrcode-logo";
 import Biometric from "./Biometric";
 import { Button, Modal } from "flowbite-react";
-import JSZip from "jszip";
+// import JSZip from "jszip";
+import * as zip from "@zip.js/zip.js"
+import xml2js from "xml2js"
 
 export default function BankPortal() {
   const [file, setFile] = useState<File | null>(null);
@@ -14,57 +16,60 @@ export default function BankPortal() {
   const [step, setStep] = useState(1);
   const [captured, setCaptured] = useState<string | null>(null);
   const [loader, setLoader] = useState(false);
-
-  const handleFileChange = (e: any) => {
-    const reader = new FileReader();
-    const selectedFile = e.target.files[0];
-    console.log("selected file", selectedFile);
-    setFile(selectedFile);
-    e?.preventDefault();
+  const [extractedFiles, setExtractedFiles] = useState<any>([])
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      e.preventDefault();
+      const selectedFile = e.target.files?.[0];
+      if (!selectedFile) {
+        console.error("No file selected");
+        return;
+      }
+  
+      console.log("Selected file:", selectedFile);
+  
+      setFile(selectedFile);
+  
+      const reader = new zip.ZipReader(new zip.BlobReader(selectedFile), {
+        password,
+      });
+      console.log("Reader:", reader);
+  
+      const entries = await reader.getEntries();
+      const extractedEntries = [];
+  
+      console.log("Entries:", entries);
+  
+      for (const entry of entries) {
+        if (!entry.directory) {
+          const text = await entry.getData(new zip.TextWriter());
+          console.log("Text:", text);
+  
+          const parser = new xml2js.Parser();
+          try {
+            const result = await parser.parseStringPromise(text);
+            console.log("Parsed XML:", result);
+            extractedEntries.push(result.OfflinePaperlessKyc.UidData[0]);
+          } catch (err) {
+            console.error("Failed to parse XML:", err);
+          }
+        }
+      }
+  
+      setExtractedFiles(extractedEntries)
+      // Process extractedEntries as needed
+    } catch (error) {
+      console.error("Error handling file:", error);
+    }
   };
+  
 
   const handleConfirm = async () => {
     window.location.href = '/carddetails';
   }
 
   const handleUpload = async () => {
-    if (file) {
-      console.log("File uploaded:", file);
-      setIsReceived(true);
-
-      const zip = new JSZip();
-      const reader = new FileReader();
-
-      reader.onload = async (event) => {
-        const buffer = event.target?.result;       
-        if (buffer) {
-          try {
-            const unzipped = await zip.loadAsync(buffer, {
-              password: "1234",
-            } as any);
-            
-            unzipped.forEach(
-              async (relativePath: string, file: JSZip.JSZipObject) => {
-                const extractedFile = await file.async("blob");
-                console.log(`Extracted file: ${extractedFile}`);
-
-                const url = URL.createObjectURL(extractedFile);
-                window.open(url);
-              }
-            );
-          } catch (error) {
-            console.error("Error while unzipping:", error);
-            alert("Incorrect password or unable to unzip the file.");
-          }  
-        } else {
-          console.error("Failed to read file as buffer.");
-        }
-      };
-
-      reader.readAsArrayBuffer(file);
-    } else {
-      console.log("No file selected");
-    }
+    console.log("Extracted Entries:", extractedFiles[0]);
   };
 
   const showComponent = (selectedStep: number) => {
