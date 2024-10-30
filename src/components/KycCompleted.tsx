@@ -19,6 +19,9 @@ const KYCCompleted = () => {
     }
   }, []);
 
+  const handleNextPage = () => {
+    window.location.href = '/financialservices';
+  }
   const issueCredential = () => {
     const userEmail = "bhavana.karwade@ayanworks.com";
     const templateId = "27d2ebd4-fa1b-458b-9447-3ade918cba33";
@@ -187,7 +190,7 @@ const KYCCompleted = () => {
                 <p>
                   <span
                     className="underline cursor-pointer text-blue-600"
-                    onClick={() => alert("Credential confirmed!")}
+                    onClick={handleNextPage}
                   >
                     Click here
                   </span>{" "}
