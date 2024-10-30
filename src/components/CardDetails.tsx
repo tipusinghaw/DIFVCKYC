@@ -9,9 +9,9 @@ const CardDetails = () => {
     const data = localStorage.getItem("aadhaarData");
     if (data) {
       const parsedData = JSON.parse(data);
-      setDetails(parsedData); 
+      setDetails(parsedData);
     } else {
-      console.log("No data found in localStorage."); 
+      console.log("No data found in localStorage.");
     }
   }, []);
 
@@ -20,51 +20,109 @@ const CardDetails = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      {details ? (
-        <div className="bg-white shadow-lg rounded-lg border border-gray-300 p-6 w-[600px] h-[350px] flex bg-gradient-to-r from-blue-200 via-indigo-200 to-purple-200 mb-6">
-          <div className="w-38 border-2 border-gray-300 rounded-lg overflow-hidden mr-4">
-            <img
-              src={`data:image/jpeg;base64,${details?.photoUrl}`}
-              alt="Aadhaar Holder"
-              className="w-full h-full object-cover"
-            />
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-2xl font-bold text-blue-600">TrustBank</div>
+            <div className="space-x-8">
+              <button className="text-gray-600 hover:text-blue-600">
+                Personal
+              </button>
+              <button className="text-gray-600 hover:text-blue-600">
+                Business
+              </button>
+              <button className="text-gray-600 hover:text-blue-600">
+                About
+              </button>
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                Login
+              </button>
+            </div>
           </div>
-          <div className="mt-4 ml-2 flex flex-col justify-between">
-            <div>
-              <div className="flex mt-2">
-                <h2 className="font-bold text-gray-800 text-lg">Name:</h2>
-                <p className="font-semibold text-gray-600 ml-2 text-lg">{details.name}</p>
+        </nav>
+      </header>
+
+      {/* Aadhaar Card Details */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="bg-white shadow-lg rounded-xl border border-gray-200 p-8 flex items-center space-x-8">
+          {details ? (
+            <>
+              <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden">
+                {" "}
+                {/* Reduced width and height */}
+                <img
+                  src={`data:image/jpeg;base64,${details?.photoUrl}`}
+                  alt="Aadhaar Holder"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="flex mt-2">
-                <h2 className="font-bold text-gray-800 text-lg">Date of Birth:</h2>
-                <p className="font-semibold text-gray-600 ml-2 text-lg">{details.dob}</p>
+              <div className="flex flex-col justify-between">
+                <h1 className="text-xl font-bold text-gray-800 mb-4">
+                  Customer Details
+                </h1>{" "}
+                {/* Adjusted heading size */}
+                <div className="space-y-2">
+                  {" "}
+                  {/* Reduced space between items */}
+                  <div className="flex">
+                    <h2 className="font-semibold text-gray-700">Name:</h2>
+                    <p className="text-gray-600 ml-2">{details.name}</p>
+                  </div>
+                  <div className="flex">
+                    <h2 className="font-semibold text-gray-700">
+                      Date of Birth:
+                    </h2>
+                    <p className="text-gray-600 ml-2">{details.dob}</p>
+                  </div>
+                  <div className="flex">
+                    <h2 className="font-semibold text-gray-700">Gender:</h2>
+                    <p className="text-gray-600 ml-2">{details.gender}</p>
+                  </div>
+                  <div className="flex">
+                    <h2 className="font-semibold text-gray-700">Address:</h2>
+                    <p className="text-gray-600 ml-2">{details.address}</p>
+                  </div>
+                  <div className="flex">
+                    <h2 className="font-semibold text-gray-700">Aadhaar ID:</h2>
+                    <p className="text-gray-600 ml-2">xxxx-xxxx-xxxx-xxxx</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex mt-2">
-                <h2 className="font-bold text-gray-800 text-lg">Gender:</h2>
-                <p className="font-semibold text-gray-600 ml-2 text-lg">{details.gender}</p>
-              </div>
-              <div className="flex mt-2">
-                <h2 className="font-bold text-gray-800 text-lg">Address:</h2>
-                <p className="font-semibold text-gray-600 ml-2 text-lg">{details.address}</p>
-              </div>
-              <div className="flex mt-2">
-                <h2 className="font-bold text-gray-800 text-lg">Aadhar Id:</h2>
-                <p className="font-semibold text-gray-600 ml-2 text-lg">{details.uid}</p>
-              </div>
+            </>
+          ) : (
+            <p className="text-gray-600 text-lg">Loading your details...</p>
+          )}
+        </div>
+
+        {/* Biometric Verification Button */}
+        <div className="text-center mt-12">
+          <button
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
+            onClick={handleStartBiometricVerification}
+          >
+            Start Biometric Verification
+          </button>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-white mb-4">TrustBank</div>
+            <p className="mb-4">
+              © 2024 TrustBank - Secure and Fast Aadhaar Verification
+            </p>
+            <div className="space-x-4">
+              <button className="hover:text-white">Privacy Policy</button>
+              <button className="hover:text-white">Terms of Service</button>
+              <button className="hover:text-white">Contact Us</button>
             </div>
           </div>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-      
-      <button
-        className="cursor-pointer py-3 lg:py-4 px-12 lg:px-16 text-white font-semibold rounded-lg bg-indigo-500 hover:bg-indigo-600 transition duration-300"
-        onClick={handleStartBiometricVerification}
-      >
-        Next
-      </button>
+      </footer>
     </div>
   );
 };
