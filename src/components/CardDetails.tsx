@@ -32,7 +32,7 @@ const CardDetails = () => {
 
       {/* Aadhaar Card Details */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-[#bfdbfe] shadow-lg rounded-xl border border-gray-200 p-16 flex items-center space-x-8">
+        <div style={{ width: '60%', margin: 'auto' }} className="shadow-lg rounded-xl border border-gray-200 p-16 flex items-center space-x-8">
           {details ? (
             <>
               <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden">
@@ -99,7 +99,7 @@ const CardDetails = () => {
           <div className="text-center">
             <div className="text-2xl font-bold text-white mb-4">TrustBank</div>
             <p className="mb-4">
-              © 2024 TrustBank - Secure and Fast Aadhaar Verification
+              2024 TrustBank - Secure and Fast account opening
             </p>
             <div className="space-x-4">
               <button className="hover:text-white">Privacy Policy</button>
