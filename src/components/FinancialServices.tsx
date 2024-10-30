@@ -109,7 +109,7 @@ const FinancialServices = () => {
 
       if (response.ok) {
         console.log("Verification successful:", result);
-        window.location.href = "/verification";
+        window.location.href = "/stepper";
       } else {
         console.error("Verification failed:", result);
       }
@@ -238,7 +238,7 @@ const FinancialServices = () => {
               Raigarh, Maharashtra, India
             </p>
 
-            <div className="w-full bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg p-6 shadow-md">
+            <div className="w-full bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg p-6 shadow-md mb-4">
               <div className="mb-4">
                 <p className="text-lg font-semibold text-gray-800">Address:</p>
                 <p className="text-gray-700">{details?.address}</p>
@@ -255,16 +255,32 @@ const FinancialServices = () => {
               </div>
             </div>
 
+            <div className="w-full mt-4 mb-6">
+              <label
+                htmlFor="loanAmount"
+                className="text-lg font-semibold text-gray-800 block mb-2"
+              >
+                Loan Amount
+              </label>
+              <input
+                type="number"
+                id="loanAmount"
+                name="loanAmount"
+                placeholder="Enter loan amount"
+                className="w-full px-4 py-3 border border-blue-600 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              />
+            </div>
+
             <button
               onClick={handleVerifyCredentials}
-              className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
             >
-              Verify Credentials
+              Start Loan Process
             </button>
 
             <button
               onClick={handleCloseModal}
-              className="mt-6 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-300"
+              className="mt-4 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-300"
             >
               Close
             </button>
