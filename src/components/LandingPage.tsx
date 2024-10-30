@@ -172,7 +172,7 @@ export default function BankHomePage() {
           <div className="text-center">
             <div className="text-2xl font-bold text-white mb-4">TrustBank</div>
             <p className="mb-4">
-              © 2024 TrustBank - Secure and Fast Aadhaar Verification
+              2024 TrustBank - Secure and Fast account opening
             </p>
             <div className="space-x-4">
               <button className="hover:text-white">Privacy Policy</button>

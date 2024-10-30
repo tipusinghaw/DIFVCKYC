@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const KYCCompleted = () => {
   const [details, setDetails] = useState(null);
@@ -20,8 +22,8 @@ const KYCCompleted = () => {
   }, []);
 
   const handleNextPage = () => {
-    window.location.href = '/financialservices';
-  }
+    window.location.href = "/financialservices";
+  };
   const issueCredential = () => {
     const userEmail = "bhavana.karwade@ayanworks.com";
     const templateId = "27d2ebd4-fa1b-458b-9447-3ade918cba33";
@@ -53,7 +55,7 @@ const KYCCompleted = () => {
       )
       .then((response) => {
         console.log("Credential Response:", response.data);
-        alert("Your credentials have been issued successfully!");
+        toast.success("Your credentials have been issued successfully!");
 
         const credentialId = response?.data?.credentialId;
         if (response?.status === 201) {
@@ -126,7 +128,7 @@ const KYCCompleted = () => {
               className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
               onClick={issueCredential}
             >
-              Get Your Credentials
+              Get Your Verifiable Credentials
             </button>
           </div>
         ) : null}
@@ -141,7 +143,7 @@ const KYCCompleted = () => {
               />
 
               <h1 className="text-3xl font-bold text-blue-600">
-                Your Aadhaar is verified successfully
+                Your verifiable credential issued and stord successfully
               </h1>
             </div>
             <div className="bg-blue-100 shadow-lg rounded-xl border border-gray-200 p-8 flex flex-col items-center space-y-8 mt-6 animate-fadeIn">
@@ -187,15 +189,12 @@ const KYCCompleted = () => {
               </div>
 
               <div className="text-gray-500 text-xl animate-fadeIn">
-                <p>
-                  <span
-                    className="underline cursor-pointer text-blue-600"
+                  <button
                     onClick={handleNextPage}
+                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
                   >
-                    Click here
-                  </span>{" "}
-                  to receive your reusable KYC credential
-                </p>
+                    Start Banking service
+                  </button>
               </div>
             </div>
           </>

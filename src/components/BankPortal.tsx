@@ -61,6 +61,7 @@ export default function BankVerificationPortal() {
               gender: extractedData.Poi[0].$.gender,
               photoUrl: extractedData.Pht[0],
             };
+            console.log("newAadhaarData:::::::", newAadhaarData);
 
             setAadhaarData(newAadhaarData);
             localStorage.setItem("aadhaarData", JSON.stringify(newAadhaarData));
@@ -141,7 +142,7 @@ export default function BankVerificationPortal() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="password">
-                  Verification Password
+                  Document verification Code
                 </label>
                 <input
                   id="password"
@@ -150,6 +151,19 @@ export default function BankVerificationPortal() {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter verification password"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="text">
+                  Mobile number
+                </label>
+                <input
+                  id="number"
+                  type="text"
+                  onChange={()=>{}}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter mobile number"
                 />
               </div>
 
