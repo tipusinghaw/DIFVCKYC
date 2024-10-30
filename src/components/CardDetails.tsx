@@ -26,27 +26,13 @@ const CardDetails = () => {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <div className="text-2xl font-bold text-blue-600">TrustBank</div>
-            <div className="space-x-8">
-              <button className="text-gray-600 hover:text-blue-600">
-                Personal
-              </button>
-              <button className="text-gray-600 hover:text-blue-600">
-                Business
-              </button>
-              <button className="text-gray-600 hover:text-blue-600">
-                About
-              </button>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                Login
-              </button>
-            </div>
           </div>
         </nav>
       </header>
 
       {/* Aadhaar Card Details */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-white shadow-lg rounded-xl border border-gray-200 p-8 flex items-center space-x-8">
+        <div className="bg-[#bfdbfe] shadow-lg rounded-xl border border-gray-200 p-16 flex items-center space-x-8">
           {details ? (
             <>
               <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden">
@@ -108,7 +94,7 @@ const CardDetails = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400">
+      <footer className="text-gray-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <div className="text-2xl font-bold text-white mb-4">TrustBank</div>

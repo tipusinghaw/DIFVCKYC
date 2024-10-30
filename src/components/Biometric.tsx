@@ -27,7 +27,7 @@ const Biometric: React.FC<BiometricProps> = ({ onCapture }) => {
       {imgSrc ? (
         <img src={imgSrc} alt="Captured" />
       ) : (
-        <div className="w-56 h-56 overflow-hidden rounded-full border-2 border-blue-500">
+        <div className="w-64 h-64 overflow-hidden rounded-full border-2 border-blue-500">
           <Webcam
             height={270}
             width={300}
@@ -42,8 +42,8 @@ const Biometric: React.FC<BiometricProps> = ({ onCapture }) => {
         </div>
       )}
       <button
-        className="cursor-pointer py-2 px-6 mt-4 text-white font-semibold rounded-lg transition duration-300 bg-indigo-500 hover:bg-indigo-600 w-[200px]"
-        onClick={capture}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
+            onClick={capture}
       >
         Capture
       </button>

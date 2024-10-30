@@ -108,11 +108,11 @@ export default function BankVerificationPortal() {
             {/* Progress Header */}
             <div className="mb-8 text-center">
               <h1 className="text-2xl font-bold text-gray-900">Account Verification</h1>
-              <div className="mt-4 flex items-center justify-center space-x-2">
+              {/* <div className="mt-4 flex items-center justify-center space-x-2">
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">1</div>
                 <div className="w-16 h-1 bg-blue-600"></div>
                 <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center font-semibold">2</div>
-              </div>
+              </div> */}
               <p className="mt-4 text-gray-600">Step 1: Identity Verification</p>
             </div>
 

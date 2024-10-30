@@ -39,32 +39,24 @@ const BiometricVerification = () => {
   return (
     <>
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-lg">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold text-blue-600">TrustBank</div>
-            <div className="space-x-8">
-              <button className="text-gray-600 hover:text-blue-600">Personal</button>
-              <button className="text-gray-600 hover:text-blue-600">Business</button>
-              <button className="text-gray-600 hover:text-blue-600">About</button>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                Login
-              </button>
-            </div>
+            <div className="text-3xl font-bold text-blue-600">TrustBank</div>
           </div>
         </nav>
       </header>
 
-      <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-white to-gray-50 p-4">
-        <div className="flex flex-col mt-24 p-8 border border-solid border-gray-300 rounded-lg shadow-lg bg-white my-8 w-11/12 md:w-2/3 lg:w-1/2">
-          <h1 className="text-blue-600 font-bold text-2xl mb-2 text-center">
+      <div className="min-h-screen flex flex-col items-center bg-[url('https://images.unsplash.com/photo-1601004360613-df96ed93c888')] bg-cover bg-center p-4">
+        <div className="flex flex-col mt-24 p-8 border border-solid border-gray-300 rounded-lg shadow-xl bg-[#f0f9ff] opacity-90 hover:opacity-100 transition duration-300 my-8 w-11/12 md:w-2/3 lg:w-1/2">
+          <h1 className="text-blue-700 font-bold text-3xl mb-2 text-center">
             Biometric Verification
           </h1>
-          <p className="text-gray-700 mb-6 text-center">Step: 2 of 2</p>
+          <p className="text-gray-600 mb-6 text-center text-lg">Step: 2 of 2</p>
 
           <div className="flex justify-center mb-6">
             <img
-              className="w-56 h-56 object-cover rounded-full border-4 border-blue-300"
+              className="w-64 h-64 object-cover rounded-full border-4 border-blue-400 shadow-lg"
               src={`data:image/jpeg;base64,${details?.photoUrl}`}
               alt="Profile"
             />
@@ -77,12 +69,12 @@ const BiometricVerification = () => {
               <img
                 src={captured}
                 alt="Captured"
-                className="w-36 h-36 object-cover rounded-full mt-4 border-2 border-gray-300"
+                className="w-48 h-48 object-cover rounded-full mt-4 border-4 border-blue-400 shadow-lg"
               />
             )}
 
             {verificationMessage && (
-              <p className="mt-4 text-green-600">{verificationMessage}</p>
+              <p className="mt-4 text-green-600 font-semibold">{verificationMessage}</p>
             )}
           </div>
         </div>
@@ -92,12 +84,12 @@ const BiometricVerification = () => {
       <footer className="bg-gray-900 text-gray-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <div className="text-2xl font-bold text-white mb-4">TrustBank</div>
+            <div className="text-3xl font-bold text-white mb-4">TrustBank</div>
             <p className="mb-4">© 2024 TrustBank - Secure and Fast Aadhaar Verification</p>
             <div className="space-x-4">
-              <button className="hover:text-white">Privacy Policy</button>
-              <button className="hover:text-white">Terms of Service</button>
-              <button className="hover:text-white">Contact Us</button>
+              <button className="hover:text-white transition duration-300">Privacy Policy</button>
+              <button className="hover:text-white transition duration-300">Terms of Service</button>
+              <button className="hover:text-white transition duration-300">Contact Us</button>
             </div>
           </div>
         </div>
