@@ -21,22 +21,24 @@ const BiometricVerification = () => {
 
   const handleCapture = async (img) => {
     setLoader(true);
-    setTimeout(()=>{
+    setVerificationMessage("Image verification is in process...");
+
+    setTimeout(() => {
       setCaptured(img);
-    },30000)
-    
+      setLoader(false);
+      setVerificationMessage("KYC process is completed.");
+      // Redirect to KYC completion page
+      window.location.href = "/kyccompleted";
+    }, 8000);
 
-    // Compare faces after capturing
+    // Optional face comparison code
     // const similarity = await imageCompare(details?.photoUrl, img);
-    // console.log("similarity4567:::", similarity);
     // setLoader(false);
-
     // if (similarity > 0.95) {
     //   setVerificationMessage("KYC process is completed.");
     // } else {
     //   setVerificationMessage("KYC verification failed.");
     // }
-    window.location.href = '/kyccompleted';
   };
 
   return (
@@ -68,7 +70,16 @@ const BiometricVerification = () => {
           <div className="flex flex-col items-center">
             <Biometric onCapture={handleCapture} />
 
-            {captured && (
+            {loader && (
+              <div className="flex flex-col items-center mt-4">
+                <div className="loader border-t-4 border-blue-400 border-solid rounded-full w-12 h-12 animate-spin"></div>
+                <p className="text-blue-600 font-semibold mt-2">
+                  Image verification is in process...
+                </p>
+              </div>
+            )}
+
+            {captured && !loader && (
               <img
                 src={captured}
                 alt="Captured"
@@ -76,13 +87,14 @@ const BiometricVerification = () => {
               />
             )}
 
-            {verificationMessage && (
-              <p className="mt-4 text-green-600 font-semibold">{verificationMessage}</p>
+            {verificationMessage && !loader && (
+              <p className="mt-4 text-green-600 font-semibold">
+                {verificationMessage}
+              </p>
             )}
           </div>
         </div>
       </div>
-
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -90,9 +102,15 @@ const BiometricVerification = () => {
             <div className="text-3xl font-bold text-white mb-4">TrustBank</div>
             <p className="mb-4">2024 TrustBank- Secure and Fast </p>
             <div className="space-x-4">
-              <button className="hover:text-white transition duration-300">Privacy Policy</button>
-              <button className="hover:text-white transition duration-300">Terms of Service</button>
-              <button className="hover:text-white transition duration-300">Contact Us</button>
+              <button className="hover:text-white transition duration-300">
+                Privacy Policy
+              </button>
+              <button className="hover:text-white transition duration-300">
+                Terms of Service
+              </button>
+              <button className="hover:text-white transition duration-300">
+                Contact Us
+              </button>
             </div>
           </div>
         </div>
