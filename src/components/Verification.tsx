@@ -1,10 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 function VerificationSuccess() {
-
   const goToLandingPage = () => {
-    window.location.href = '/';
-  }
+    window.location.href = "/";
+  };
 
   return (
     <motion.div
@@ -13,10 +12,13 @@ function VerificationSuccess() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white p-10 rounded-xl shadow-2xl text-center max-w-md mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-600">Verification Successful!</h2>
+      <div className="bg-white p-10 rounded-xl shadow-2xl text-center max-w-[800px] min-h-[600px] mx-auto">
+        <h2 className="mt-20 text-3xl font-bold mb-6 text-blue-600">
+          Verification Successful!
+        </h2>
         <p className="text-gray-700 mb-6">
-          Congratulations! Your credentials have been verified successfully. You can now access all the features available to verified users.
+          Congratulations! Your credentials have been verified successfully. You
+          can now access all the features available to verified users.
         </p>
 
         <div className="flex justify-center mb-6">
@@ -32,9 +34,10 @@ function VerificationSuccess() {
         </p>
 
         <div className="flex justify-center items-center">
-          <button 
-          onClick={goToLandingPage}
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+          <button
+            onClick={goToLandingPage}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+          >
             Go to Dashboard
           </button>
         </div>

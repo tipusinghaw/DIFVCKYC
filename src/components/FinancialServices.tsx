@@ -115,7 +115,6 @@ const FinancialServices = () => {
       }
     } catch (error) {
       console.error("Error occurred while verifying credentials:", error);
-      // Handle network or server errors
     }
   };
 
