@@ -61,7 +61,6 @@ export default function BankVerificationPortal() {
               gender: extractedData.Poi[0].$.gender,
               photoUrl: extractedData.Pht[0],
             };
-            console.log("newAadhaarData:::::::", newAadhaarData);
 
             setAadhaarData(newAadhaarData);
             localStorage.setItem("aadhaarData", JSON.stringify(newAadhaarData));
@@ -103,17 +102,10 @@ export default function BankVerificationPortal() {
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="py-12">
           <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-            {/* Progress Header */}
             <div className="mb-8 text-center">
               <h1 className="text-2xl font-bold text-gray-900">Account Verification</h1>
-              {/* <div className="mt-4 flex items-center justify-center space-x-2">
-                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">1</div>
-                <div className="w-16 h-1 bg-blue-600"></div>
-                <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center font-semibold">2</div>
-              </div> */}
               <p className="mt-4 text-gray-600">Step 1: Identity Verification</p>
             </div>
 

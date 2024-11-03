@@ -23,22 +23,15 @@ const BiometricVerification = () => {
     setLoader(true);
     setVerificationMessage("Image verification is in process...");
 
-    setTimeout(() => {
-      setCaptured(img);
-      setLoader(false);
-      setVerificationMessage("KYC process is completed.");
-      // Redirect to KYC completion page
-      window.location.href = "/kyccompleted";
-    }, 8000);
+    const similarity = await imageCompare(details?.photoUrl, img);
+    setLoader(false);
 
-    // Optional face comparison code
-    // const similarity = await imageCompare(details?.photoUrl, img);
-    // setLoader(false);
-    // if (similarity > 0.95) {
-    //   setVerificationMessage("KYC process is completed.");
-    // } else {
-    //   setVerificationMessage("KYC verification failed.");
-    // }
+    if (similarity > 0.95) {
+      setVerificationMessage("KYC process is completed.");
+      window.location.href = "/kyccompleted";
+    } else {
+      setVerificationMessage("KYC verification failed.");
+    }
   };
 
   return (

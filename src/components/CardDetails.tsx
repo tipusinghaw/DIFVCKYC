@@ -11,7 +11,7 @@ const CardDetails = () => {
       const parsedData = JSON.parse(data);
       setDetails(parsedData);
     } else {
-      console.log("No data found in localStorage.");
+      console.error("No data found in localStorage.");
     }
   }, []);
 
@@ -21,7 +21,6 @@ const CardDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Header */}
       <header className="bg-white shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
@@ -30,14 +29,12 @@ const CardDetails = () => {
         </nav>
       </header>
 
-      {/* Aadhaar Card Details */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div style={{ width: '60%', margin: 'auto' }} className="shadow-lg rounded-xl border border-gray-200 p-16 flex items-center space-x-8">
           {details ? (
             <>
               <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden">
                 {" "}
-                {/* Reduced width and height */}
                 <img
                   src={`data:image/jpeg;base64,${details?.photoUrl}`}
                   alt="Aadhaar Holder"
@@ -48,10 +45,8 @@ const CardDetails = () => {
                 <h1 className="text-xl font-bold text-gray-800 mb-4">
                   Customer Details
                 </h1>{" "}
-                {/* Adjusted heading size */}
                 <div className="space-y-2">
                   {" "}
-                  {/* Reduced space between items */}
                   <div className="flex">
                     <h2 className="font-semibold text-gray-700">Name:</h2>
                     <p className="text-gray-600 ml-2">{details.name}</p>
@@ -82,7 +77,6 @@ const CardDetails = () => {
           )}
         </div>
 
-        {/* Biometric Verification Button */}
         <div className="text-center mt-12">
           <button
             className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
@@ -93,7 +87,6 @@ const CardDetails = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="text-gray-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">

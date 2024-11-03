@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { envConfig } from "../config/envConfig";
 
 const KYCCompleted = () => {
   const [details, setDetails] = useState(null);
   const [credentialData, setCredentialData] = useState(null);
   const [isKycProcessed, setIsKycProcessed] = useState(false); // State to manage visibility
 
-  const myApiKey =
-    "sk_staging_5YV5T8355LLd2Htb6JQ6P9WjrApd8Vv8fT9s1TPkfWKBGXdsCPYWVqk3c4AMUT6jNt9CyeDUVbsxuNr9BuFSV6UzEuibUt4U8L7T6wBzf3tTUN4FmBHU7yggMBYhDCAuMsNPpoADskMzCM2c4a23o5GNuYs68Uhff9XKQFNAoTA9CZTAE4ue7uohvj8YqaHRjDmj33iCRPi8EwPB66YTTb4G";
   useEffect(() => {
     const data = localStorage.getItem("aadhaarData");
 
@@ -26,7 +25,7 @@ const KYCCompleted = () => {
   };
   const issueCredential = () => {
     const userEmail = "bhavana.karwade@ayanworks.com";
-    const templateId = "27d2ebd4-fa1b-458b-9447-3ade918cba33";
+    const templateId = envConfig.PUBLIC_TEMPLATE_ID;
 
     const subject = details;
     const credentialParams = {
@@ -38,68 +37,34 @@ const KYCCompleted = () => {
       },
     };
 
-    console.log("credentialParams567:::", credentialParams);
-
     const options = {
       headers: {
-        "X-API-KEY": myApiKey,
+        "X-API-KEY": envConfig.PUBLIC_API_KEY,
         "Content-Type": "application/json",
       },
     };
 
     axios
       .post(
-        `http://localhost:5003/crossmint/issue-credential`,
+        `${envConfig.PUBLIC_BASE_URL}/crossmint/issue-credential`,
         credentialParams,
         options
       )
       .then((response) => {
         console.log("Credential Response:", response.data);
         toast.success("Your credentials have been issued successfully!");
-
+     
         const credentialId = response?.data?.credentialId;
+
+        localStorage.setItem("credentialId", credentialId);
+        
         if (response?.status === 201) {
-          // Replace axios.get with static response data
-          return Promise.resolve({
-            data: {
-              value: {
-                id: credentialId || "<CREDENTIAL_ID>",
-                credentialSubject: {
-                  name: "Bhavana Pramod Karwade",
-                  address:
-                    "C/O Gajanan Karwade, House No. 1551-A, Kakar Tale, Raigarh, Maharashtra, India, 402301",
-                  dob: "26-07-2001",
-                  gender: "F",
-                  photoUrl:
-                    "https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
-                },
-                nft: {
-                  tokenId: "<tokenId>",
-                  chain: "polygon",
-                  contractAddress: "<collection_contract_address>",
-                },
-                expirationDate: "2234-12-12",
-                "@context": [
-                  "https://www.w3.org/2018/credentials/v1",
-                  "https://github.com/haardikk21/ethereum-eip712-signature-2021-spec/blob/main/index.html",
-                ],
-                issuer: {
-                  id: "did:0xISSUER_ADDRESS",
-                },
-                type: ["VerifiableCredential", "64f0c05641a512c86786fd3b"],
-                issuanceDate: "2023-08-31T16:34:33.854Z",
-                proof: {
-                  proofValue: "ProofValue",
-                  "...additional required fields": "...",
-                },
-              },
-            },
-          });
+          return axios.get(`${envConfig.PUBLIC_BASE_URL}/crossmint/credentials/${credentialId}`);
         }
       })
       .then((secondApiResponse) => {
         console.log("Second API Response:", secondApiResponse?.data);
-        setCredentialData(secondApiResponse.data.value); // Set the credential data
+        setCredentialData(secondApiResponse?.data); // Set the credential data
         setIsKycProcessed(true); // Set KYC processed to true to show the card
       })
       .catch((err) => console.error("Error issuing credential:", err));
@@ -143,7 +108,7 @@ const KYCCompleted = () => {
               />
 
               <h1 className="text-3xl font-bold text-blue-600">
-                Your verifiable credential issued and stord successfully
+                Your verifiable credential issued and stored successfully
               </h1>
             </div>
             <div className="bg-blue-100 shadow-lg rounded-xl border border-gray-200 p-8 flex flex-col items-center space-y-8 mt-6 animate-fadeIn">

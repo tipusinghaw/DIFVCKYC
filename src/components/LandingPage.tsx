@@ -4,7 +4,6 @@ import {
   Shield,
   Clock,
   CreditCard,
-  DollarSign,
   FileCheck,
 } from "lucide-react";
 

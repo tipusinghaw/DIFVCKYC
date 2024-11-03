@@ -2,6 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { FaCreditCard, FaMoneyCheck, FaUniversity } from "react-icons/fa";
+import {
+  credentialSchema,
+  domain,
+  issuerId,
+  nft,
+  primaryType,
+  proofPurpose,
+  proofType,
+  proofValue,
+  verifiableCredential,
+  verificationMethod,
+} from "../config/commonConstants";
+import { envConfig } from "../config/envConfig";
 
 const FinancialServices = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,11 +27,10 @@ const FinancialServices = () => {
       const parsedData = JSON.parse(data);
       setDetails(parsedData);
     } else {
-      console.log("No data found in localStorage.");
+      console.error("No data found in localStorage.");
     }
   }, []);
 
-  console.log("details:::", details);
   const handleLoanApplication = () => {
     setShowModal(true);
   };
@@ -28,42 +40,42 @@ const FinancialServices = () => {
   };
 
   const handleVerifyCredentials = async () => {
+    const credentialId = localStorage.getItem("credentialId");
+
+    // Dynamically create the CredentialSubject array based on the keys in details
+    const credentialSubjectSchema = details
+      ? Object.keys(details).map((key) => ({ name: key, type: "string" }))
+      : [];
+
     const verifyCred = {
-      id: "urn:uuid:f6c90491-17aa-4b3b-b447-72dd9946d8d3",
+      id: credentialId,
       credentialSubject: {
-        course: "Blockchain 101",
-        grade: "A",
-        id: "did:polygon-amoy:0xE7eB03eAce2EE674a0e3Ba96b714c6D615fD2AA8",
+        details,
       },
       validUntil: "2034-02-02",
       nft: {
-        tokenId: "1",
-        chain: "polygon-amoy",
-        contractAddress: "0xA82f7a7da4BDBf09F697167deD4e622dBdd60541",
+        tokenId: nft.TOKEN_ID,
+        chain: nft.CHAIN,
+        contractAddress: nft.CONTRACT_ADDRESS,
       },
       issuer: {
-        id: "did:polygon-amoy:0xd1B3dF611866B33A481E44B3f3ea75FfB840D63B",
+        id: issuerId,
       },
-      type: [
-        "VerifiableCredential",
-        "crossmint:5fe6040e-07a1-48bb-97a3-b588a7e927d2:courseCompletionQuickstart",
-      ],
+      type: [verifiableCredential, envConfig.PUBLIC_SCHEMA_ID],
       validFrom: "2024-10-18T18:29:36.551Z",
-      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "@context": [credentialSchema],
       proof: {
-        verificationMethod:
-          "did:polygon-amoy:0xd1B3dF611866B33A481E44B3f3ea75FfB840D63B#evmAddress",
+        verificationMethod: verificationMethod,
         created: "2024-10-18T18:29:36.551Z",
-        proofPurpose: "assertionMethod",
-        type: "EthereumEip712Signature2021",
-        proofValue:
-          "0x4b2cfb2bef5e6138d46ede4c3afde89bba6a7a5248399da17702c625187c71cf4d9a44474115305bb81786fb3a7078939014e83e8bb3d159b3c362e8e2e5b0a81c",
+        proofPurpose: proofPurpose,
+        type: proofType,
+        proofValue: proofValue,
         eip712: {
           domain: {
-            name: "Crossmint",
-            version: "0.1",
-            chainId: 4,
-            verifyingContract: "0xD8393a735e8b7B6E199db9A537cf27C61Aa74954",
+            name: domain.NAME,
+            version: domain.VERSION,
+            chainId: domain.CHAINID,
+            verifyingContract: domain.VERIFYING_CONTRACT,
           },
           types: {
             VerifiableCredential: [
@@ -76,11 +88,7 @@ const FinancialServices = () => {
               { name: "validUntil", type: "string" },
               { name: "nft", type: "Nft" },
             ],
-            CredentialSubject: [
-              { name: "id", type: "string" },
-              { name: "course", type: "string" },
-              { name: "grade", type: "string" },
-            ],
+            CredentialSubject: credentialSubjectSchema,
             Issuer: [{ name: "id", type: "string" }],
             Nft: [
               { name: "tokenId", type: "string" },
@@ -88,14 +96,14 @@ const FinancialServices = () => {
               { name: "chain", type: "string" },
             ],
           },
-          primaryType: "VerifiableCredential",
+          primaryType: primaryType,
         },
       },
     };
 
     try {
       const response = await fetch(
-        "http://localhost:5003/crossmint/verify-credential",
+        `${envConfig.PUBLIC_BASE_URL}/crossmint/verify-credential`,
         {
           method: "POST",
           headers: {
@@ -143,7 +151,6 @@ const FinancialServices = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {/* Apply for Loan */}
           <div
             className="bg-[#bfdbfe] shadow-lg rounded-xl border border-gray-200 p-12 flex items-center space-x-6 mb-8 cursor-pointer hover:bg-blue-100 transition duration-300  ease-in-out"
             onClick={handleLoanApplication}
@@ -159,7 +166,6 @@ const FinancialServices = () => {
             </div>
           </div>
 
-          {/* Apply for Credit Card */}
           <div className="bg-[#bfdbfe] shadow-lg rounded-xl border border-gray-200 p-12 flex items-center space-x-6 mb-8 cursor-pointer hover:bg-blue-100 transition duration-300 ease-in-out">
             <FaCreditCard className="text-blue-600 text-4xl animate-bounce" />
             <div className="flex flex-col">
@@ -172,7 +178,6 @@ const FinancialServices = () => {
             </div>
           </div>
 
-          {/* Apply for Debit Card */}
           <div className="bg-[#bfdbfe] shadow-lg rounded-xl border border-gray-200 p-12 flex items-center space-x-6 mb-8 cursor-pointer hover:bg-blue-100 transition duration-300 ease-in-out">
             <FaMoneyCheck className="text-blue-600 text-4xl animate-bounce" />
             <div className="flex flex-col">

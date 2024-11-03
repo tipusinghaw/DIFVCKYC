@@ -3,8 +3,6 @@ import { FaceSdk, ImageSource } from '@regulaforensics/facesdk-webclient';
 const sdk = new FaceSdk();
 
 export const imageCompare = async (aadhaarImage: any, captureImage: any) => {
-  console.log('aadhaarImage5678:::', aadhaarImage)
-  console.log('captureImage56789:::', captureImage)
 
   const response = await sdk.matchingApi.match({
     images: [
@@ -13,6 +11,5 @@ export const imageCompare = async (aadhaarImage: any, captureImage: any) => {
     ]
   });
    
-  console.log('response34567::::', response)
-  return response;; // Adjust according to your actual response structure
+  return (response as any).similarity as number;
 };
