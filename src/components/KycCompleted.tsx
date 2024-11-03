@@ -24,7 +24,7 @@ const KYCCompleted = () => {
     window.location.href = "/financialservices";
   };
   const issueCredential = () => {
-    const userEmail = "bhavana.karwade@ayanworks.com";
+    const userEmail = localStorage.getItem("email");
     const templateId = envConfig.PUBLIC_TEMPLATE_ID;
 
     const subject = details;
